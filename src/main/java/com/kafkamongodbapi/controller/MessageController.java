@@ -1,8 +1,8 @@
 package com.kafkamongodbapi.controller;
 
 import com.kafkamongodbapi.kafka.model.MessageRequest;
-import com.kafkamongodbapi.mongodb.Message;
-import com.kafkamongodbapi.mongodb.MessageRepository;
+import com.kafkamongodbapi.mongodb.entity.Message;
+import com.kafkamongodbapi.mongodb.repository.MessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;

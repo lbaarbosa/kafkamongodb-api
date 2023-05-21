@@ -1,4 +1,4 @@
-package com.kafkamongodbapi.mongodb;
+package com.kafkamongodbapi.mongodb.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
