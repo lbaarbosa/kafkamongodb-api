@@ -8,13 +8,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageController.class);
-    private KafkaTemplate<String, String> kafkaTemplate;
-    private MessageRepository messageRepository;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final MessageRepository messageRepository;
 
     public MessageController(KafkaTemplate<String, String> kafkaTemplate, MessageRepository messageRepository) {
         this.kafkaTemplate = kafkaTemplate;
@@ -42,6 +45,7 @@ public class MessageController {
             LOGGER.info("Message sent to Kafka!");
             messageRepository.save(message);
             LOGGER.info("Message saved to MongoDB!");
+            LOGGER.info("Operation finished at: {}", LocalTime.now());
         } catch (Exception e) {
             LOGGER.error("Exception: ", e);
             e.printStackTrace();
