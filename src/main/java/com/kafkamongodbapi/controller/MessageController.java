@@ -1,6 +1,10 @@
 package com.kafkamongodbapi.controller;
 
-import com.kafkamongodbapi.model.MessageRequest;
+import com.kafkamongodbapi.kafka.model.MessageRequest;
+import com.kafkamongodbapi.mongodb.Message;
+import com.kafkamongodbapi.mongodb.MessageRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,20 +12,39 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/messages")
 public class MessageController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageController.class);
     private KafkaTemplate<String, String> kafkaTemplate;
+    private MessageRepository messageRepository;
 
-    public MessageController(KafkaTemplate<String, String> kafkaTemplate) {
+    public MessageController(KafkaTemplate<String, String> kafkaTemplate, MessageRepository messageRepository) {
         this.kafkaTemplate = kafkaTemplate;
+        this.messageRepository = messageRepository;
     }
 
     @PostMapping
     public void publish(@RequestBody MessageRequest request) {
-        kafkaTemplate.send("testTopic", request.message());
+        sendThenSave();
     }
 
     @GetMapping
     public void publish() {
-        /* Reachable through localhost:8080/messages, so you don't need to use Postman, you lazy*/
-        kafkaTemplate.send("testTopic", "The controller is working fine!");
+        /*
+        Reachable through localhost:8080/messages
+        So you don't need to use Postman, you lazy :P
+        */
+        sendThenSave();
+    }
+
+    private void sendThenSave() {
+        Message message = new Message("The controller is working fine!");
+        try {
+            kafkaTemplate.send("testTopic", message.getContent());
+            LOGGER.info("Message sent to Kafka!");
+            messageRepository.save(message);
+            LOGGER.info("Message saved to MongoDB!");
+        } catch (Exception e) {
+            LOGGER.error("Exception: ", e);
+            e.printStackTrace();
+        }
     }
 }
