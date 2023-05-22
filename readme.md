@@ -15,4 +15,4 @@ The request body is a MessageRequest object like this
 }
 ~~~
 
-Mongo GUI at ``http://localhost:8081`` so you can see the messages sent with Kafka stored at MongoDB
+Mongo GUI at ``http://localhost:8081`` so you can see the messages sent with Kafka stored in MongoDB
