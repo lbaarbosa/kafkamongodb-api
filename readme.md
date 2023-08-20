@@ -16,3 +16,11 @@ The request body is a MessageRequest object like this
 ~~~
 
 Mongo GUI at ``http://localhost:8081`` so you can see the messages sent with Kafka stored at MongoDB
+
+### Docker instructions
+
+``mvn clean package``
+
+``docker build -t kafkamongodb-api .``
+
+``docker run -d kafkamongodb-api``
