@@ -15,6 +15,8 @@ The request body is a MessageRequest object like this
 }
 ~~~
 
+Swagger UI at ``http://localhost:8080/swagger-ui/index.html``
+
 Mongo GUI at ``http://localhost:8081`` so you can see the messages sent with Kafka stored in MongoDB
 
 ### Docker instructions

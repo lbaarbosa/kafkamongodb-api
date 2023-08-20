@@ -2,7 +2,6 @@ package com.kafkamongodbapi.controller;
 
 import com.kafkamongodbapi.kafka.model.MessageRequest;
 import com.kafkamongodbapi.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
