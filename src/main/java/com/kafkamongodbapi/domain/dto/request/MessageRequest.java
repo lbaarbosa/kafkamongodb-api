@@ -1,4 +1,4 @@
-package com.kafkamongodbapi.kafka.model;
+package com.kafkamongodbapi.domain.dto.request;
 
 public record MessageRequest(String message) {
 }
